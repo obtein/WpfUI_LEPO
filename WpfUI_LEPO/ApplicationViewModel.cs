@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Wpf.Ui.Input;
+using WpfUI_LEPO.HelperClasses;
+using WpfUI_LEPO.Login;
+using WpfUI_LEPO.Monitor;
 
 namespace WpfUI_LEPO
 {
@@ -23,8 +26,8 @@ namespace WpfUI_LEPO
         public ApplicationViewModel ()
         {
             // Add available pages
-            PageViewModels.Add( new HomeViewModel() );
-            PageViewModels.Add( new ProductsViewModel() );
+            PageViewModels.Add( new LoginPageVM() );
+            PageViewModels.Add( new MonitorPageVM() );
 
             // Set starting page
             CurrentPageViewModel = PageViewModels [0];

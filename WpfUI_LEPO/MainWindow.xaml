@@ -4,18 +4,73 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfUI_LEPO"
+        xmlns:login="clr-namespace:WpfUI_LEPO.Login"
+        xmlns:monitor="clr-namespace:WpfUI_LEPO.Monitor"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Background="#FF656565">
+
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type login:LoginPageVM}">
+            <login:LoginPage />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type monitor:MonitorPageVM}">
+            <monitor:MonitorPage/>
+        </DataTemplate>
+    </Window.Resources>
+
     <Grid>
-        <ui:NavigationView IsPaneOpen="True" OpenPaneLength="115" Background="Red">
+        <ui:NavigationView x:Name="RootNavigation" OpenPaneLength="125" Visibility="Visible" BackRequested="RootNavigation_BackRequested" Navigated="RootNavigation_Navigated" Navigating="RootNavigation_Navigating">
+            <ui:NavigationView.AutoSuggestBox>
+                <ui:AutoSuggestBox x:Name="AutoSuggestBox" PlaceholderText="Search">
+                    <ui:AutoSuggestBox.Icon>
+                        <ui:IconSourceElement>
+                            <ui:SymbolIconSource Symbol="Search24" />
+                        </ui:IconSourceElement>
+                    </ui:AutoSuggestBox.Icon>
+                </ui:AutoSuggestBox>
+            </ui:NavigationView.AutoSuggestBox>
+            <ui:NavigationView.Header>
+                <ui:BreadcrumbBar
+                    Margin="42,32,0,0"
+                    FontSize="28"
+                    FontWeight="DemiBold" />
+            </ui:NavigationView.Header>
             <ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem Name="monitorButton" 
-                               Content="Monitor"
-                               Icon="{ui:SymbolIcon Symbol=ShareScreenPersonOverlayInside28}" />
+                <ui:NavigationViewItem Content="Login" TargetPageType="{x:Type login:LoginPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="Home24" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem x:Name="m1" Content="Monitor" TargetPageTag="lolo1" TargetPageType="{x:Type monitor:MonitorPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="DataHistogram24" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
+                <ui:NavigationViewItem x:Name="m2" Content="Monitor2" TargetPageTag="lolo2" TargetPageType="{x:Type monitor:MonitorPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="DataHistogram24" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
             </ui:NavigationView.MenuItems>
+            <ui:NavigationView.FooterMenuItems>
+                <ui:NavigationViewItem Content="Settings">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="Settings24" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+            </ui:NavigationView.FooterMenuItems>
         </ui:NavigationView>
-        
-        <ui:PasswordBox VerticalAlignment="Center" HorizontalAlignment="Center" Width="250" MinWidth="250" ForceCursor="True" Background="#FF616161"/>
+
+        <!-- Login -->
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+            <ui:TextBox x:Name="userNameBox" VerticalAlignment="Center" HorizontalAlignment="Center" Width="250" MinWidth="250" ForceCursor="True" Background="#FF616161"/>
+            <ui:PasswordBox x:Name="passBox" VerticalAlignment="Center" HorizontalAlignment="Center" Width="250" MinWidth="250" ForceCursor="True" Background="#FF616161"/>
+        </StackPanel>
+    
+    
     </Grid>
 </Window>
